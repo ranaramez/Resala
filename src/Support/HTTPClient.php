@@ -29,10 +29,14 @@ class HTTPClient
      */
     public function post(string $endpoint, array $headers, $payload)
     {
+        \Magento\Framework\App\ObjectManager::getInstance()->get('\Psr\Log\LoggerInterface')->info($payload);
         $response = $this->client->request('POST', $endpoint, [
             'headers' => $headers,
             'body' => $payload
         ]);
+        $stream = $response->getBody();
+        \Magento\Framework\App\ObjectManager::getInstance()->get('\Psr\Log\LoggerInterface')->info($stream->getContents());
+        $stream->rewind();
 
         if ($response->getstatusCode() == 401) {
             throw new UnauthorizedException('Unauthorized: Access is denied due to invalid credentials');

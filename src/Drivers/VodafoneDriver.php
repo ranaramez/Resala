@@ -113,12 +113,15 @@ final class VodafoneDriver extends Driver implements SMSServiceProviderDriverInt
     {
         $response = (new HTTPClient())->post($this->endPoint, $this->headers(), $this->payload());
 
-        $err = $response->Description;
-        if (empty($err))
+        if ($response->SMSStatus != "SUBMITTED")
         {
-            $err = $response->SMSStatus;
+            $err = $response->Description;
+            if (empty($err))
+            {
+                $err = $response->SMSStatus;
+            }
+            throw new UnauthorizedException($err);
         }
-        throw new UnauthorizedException($err);
 
         return $response->Description;
     }

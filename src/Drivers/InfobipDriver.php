@@ -57,7 +57,7 @@ final class InfobipDriver extends Driver implements SMSServiceProviderDriverInte
      */
     public function to($recipients)
     {
-        return $this->recipients = $recipients;
+        return $this->recipients = $this->setRecipients($recipients);
     }
 
     /**
@@ -103,6 +103,7 @@ final class InfobipDriver extends Driver implements SMSServiceProviderDriverInte
      */
     public function send(): string
     {
+        ray($this->payload());
         $response = (new HTTPClient())->post($this->endPoint, $this->headers(), $this->payload());
 
         return ($response->getstatusCode() == 200)
@@ -118,5 +119,36 @@ final class InfobipDriver extends Driver implements SMSServiceProviderDriverInte
     private function authorization()
     {
         return base64_encode($this->username . ':' . $this->password);
+    }
+
+    /**
+     * Format recipients
+     * @param string|array $recipients
+     * @return string|array
+     */
+    public function setRecipients($to)
+    {
+        if (is_array($to)){
+            $recipients = [];
+            foreach ($to as $number){
+                $recipients[] = $this->formatNumber($number);
+            }
+            return $recipients;
+        }
+        return  $this->formatNumber($to);
+    }
+    /**
+     * Format Phone number with 2XXXXXXXXXXX
+     * @param string|array $recipients
+     * @return string|array
+     */
+    public function formatNumber($phoneNumber)
+    {
+        $phoneNumber = str_replace('+', '', $phoneNumber);
+        $digit = substr($phoneNumber, 0, 1);
+        if ($digit != "2") {
+            return $phoneNumber = "2" . $phoneNumber;
+        }
+        return  $phoneNumber;
     }
 }

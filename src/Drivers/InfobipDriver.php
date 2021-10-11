@@ -103,7 +103,6 @@ final class InfobipDriver extends Driver implements SMSServiceProviderDriverInte
      */
     public function send(): string
     {
-        ray($this->payload());
         $response = (new HTTPClient())->post($this->endPoint, $this->headers(), $this->payload());
 
         return ($response->getstatusCode() == 200)

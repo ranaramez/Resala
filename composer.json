@@ -56,5 +56,6 @@
                 "SMS": "RobustTools\\SMS\\Facades\\SMS"
             }
         }
-    }
+    },
+    "version": "3.0.0"
 }

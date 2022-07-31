@@ -19,6 +19,7 @@
     "require": {
         "php": "*",
         "ext-dom": "*",
+        "ext-json": "*",
         "ext-simplexml": "*",
         "guzzlehttp/guzzle": "*",
         "illuminate/support": "*",
@@ -31,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RobustTools\\SMS\\": "src"
+            "RobustTools\\Resala\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RobustTools\\SMS\\Tests\\": "tests"
+            "RobustTools\\Resala\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,12 +51,12 @@
     "extra": {
         "laravel": {
             "providers": [
-                "RobustTools\\SMS\\SMSServiceProvider"
+                "RobustTools\\Resala\\SMSServiceProvider"
             ],
             "aliases": {
-                "SMS": "RobustTools\\SMS\\Facades\\SMS"
+                "SMS": "RobustTools\\Resala\\Facades\\SMS"
             }
         }
     },
-    "version": "3.0.2"
+    "version": "3.0.3"
 }

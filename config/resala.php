@@ -1,5 +1,6 @@
 <?php
 
+use RobustTools\Resala\Drivers\BrandEncodeDriver;
 use RobustTools\Resala\Drivers\ConnekioDriver;
 use RobustTools\Resala\Drivers\InfobipDriver;
 use RobustTools\Resala\Drivers\VodafoneDriver;
@@ -55,6 +56,13 @@ return [
             'sender_name' => env('VECTORY_LINK_SENDER_NAME', 'Vectory Link'),
             'lang' => env('VECTORY_LINK_LANG', 'E')
         ],
+
+        'brandencode' => [
+            'end_point' => env('BRANDENCODE_END_POINT'),
+            'username' => env('BRANDENCODE_USERNAME'),
+            'password' => env('BRANDENCODE_PASSWORD'),
+            'sender_name' => env('BRANDENCODE_SENDER_NAME', 'Brandencode')
+        ],
     ],
 
     /*
@@ -69,6 +77,7 @@ return [
         'vodafone' => VodafoneDriver::class,
         'connekio' => ConnekioDriver::class,
         'infobip' => InfobipDriver::class,
-        'vectory_link' => VectoryLinkDriver::class
+        'vectory_link' => VectoryLinkDriver::class,
+        'brandencode' => BrandEncodeDriver::class
     ],
 ];
